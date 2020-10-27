@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+import { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// Pages
+import HomePage from "./pages/HomePage";
+import ContributorsPage from "./pages/ContributorsPage";
+import ContributionsPage from "./pages/ContributionsPage";
+
+// Import components
+import Header from "./components/Header";
+
+const App = () => {
+  const [contributors, setContributors] = useState([
+    {
+      id: 1,
+      name: "Robbert Vermeulen",
+      bio: "React developer from The Netherlands.",
+    },
+    {
+      id: 2,
+      name: "Tim Cook",
+      bio: "CEO of Apple inc.",
+    },
+    {
+      id: 3,
+      name: "Kees de hond",
+      bio: "Ook een beschrijving.",
+    },
+    {
+      id: 4,
+      name: "Jan van Tuin",
+      bio: "Ook een beschrijving.",
+    },
+  ]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header></Header>
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/contributors">
+          <ContributorsPage contributors={contributors}></ContributorsPage>
+        </Route>
+        <Route exact path="/contributions" component={ContributionsPage} />
+      </Switch>
+    </Router>
   );
-}
+};
 
 export default App;
